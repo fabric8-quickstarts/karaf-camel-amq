@@ -29,35 +29,20 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.maven-bundle-plugin>2.3.7</version.maven-bundle-plugin>
 
     <!-- configure the versions you want to use here -->
     <activemq.version>5.12.3</activemq.version>
     <camel.version>2.17.2</camel.version>
     <karaf.version>2.4.4</karaf.version>
-    <karaf.plugin.version>4.0.3</karaf.plugin.version>
+    <karaf.plugin.version>4.0.5</karaf.plugin.version>
     <fabric8.version>2.2.144</fabric8.version>
-
-    <docker.from>fabric8/s2i-karaf:1.2</docker.from>
-    <fabric8.dockerUser>fabric8/</fabric8.dockerUser>
-    <fabric8.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</fabric8.image>
-
-    <docker.assemblyDescriptor>${basedir}/src/main/fabric8/assembly.xml</docker.assemblyDescriptor>
-    <docker.port.container.jolokia>8778</docker.port.container.jolokia>
-    <docker.port.container.http>8181</docker.port.container.http>
-    <fabric8.env.ACTIVEMQ_SERVICE_NAME>activemq</fabric8.env.ACTIVEMQ_SERVICE_NAME>
-    <!--
-    <fabric8.env.ACTIVEMQ_USERNAME>amq_username</fabric8.env.ACTIVEMQ_USERNAME>
-    <fabric8.env.ACTIVEMQ_PASSWORD>amq_password</fabric8.env.ACTIVEMQ_PASSWORD>
-    -->
-    <fabric8.label.group>quickstarts</fabric8.label.group>
-    <fabric8.iconRef>camel</fabric8.iconRef>
+    <fabric8.kubernetes.version>1.3.102</fabric8.kubernetes.version>
 
     <!-- maven plugin versions -->
     <fabric8.maven.plugin.version>3.1.4</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
-    <exec-maven-plugin.version>1.4.0</exec-maven-plugin.version>
+    <maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -91,13 +76,10 @@
 
     <!-- Karaf microcontainer dependencies -->
     <dependency>
-      <!-- scope is compile so all features (there is only one) are installed into startup.properties,
-      and the feature repo itself is not added in etc/org.apache.karaf.features.cfg file -->
       <groupId>org.apache.karaf.features</groupId>
       <artifactId>static</artifactId>
       <version>${karaf.plugin.version}</version>
       <type>kar</type>
-      <!-- no need to download kar dependencies -->
       <exclusions>
         <exclusion>
           <groupId>*</groupId>
@@ -133,6 +115,13 @@
       <classifier>features</classifier>
       <type>xml</type>
     </dependency>
+    <dependency>
+      <groupId>io.fabric8.kubernetes</groupId>
+      <artifactId>kubernetes-karaf</artifactId>
+      <version>${fabric8.kubernetes.version}</version>
+      <classifier>features</classifier>
+      <type>xml</type>
+    </dependency>
   </dependencies>
 
   <build>
@@ -142,10 +131,10 @@
         <filtering>true</filtering>
       </resource>
     </resources>
+
     <defaultGoal>install</defaultGoal>
 
     <plugins>
-      <!-- Compiler plugin enforces Java 1.8 compatibility and activates annotation processors -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
@@ -154,10 +143,11 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-        <version>${version.maven-bundle-plugin}</version>
+        <version>${maven-bundle-plugin.version}</version>
         <extensions>true</extensions>
         <configuration>
           <instructions>
@@ -168,6 +158,7 @@
           </instructions>
         </configuration>
       </plugin>
+
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <version>2.7</version>
@@ -234,10 +225,9 @@
         <configuration>
          <karafVersion>v4x</karafVersion>
          <useReferenceUrls>true</useReferenceUrls>
-          <archiveTarGz>false</archiveTarGz>
-          <!-- do not include build output directory -->
+         <archiveZip>false</archiveZip>
+         <archiveTarGz>true</archiveTarGz>
           <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
-          <!-- no startupFeatures -->
           <startupFeatures>
             <feature>karaf-framework</feature>
             <feature>shell</feature>
@@ -248,6 +238,7 @@
             <feature>camel-jms</feature>
             <feature>activemq-client</feature>
             <feature>activemq-camel</feature>
+            <feature>kubernetes-client</feature>
           </startupFeatures>
           <startupBundles>
             <bundle>mvn:io.fabric8/fabric8-karaf/${fabric8.version}</bundle>
@@ -264,42 +255,10 @@
           </libraries>
         </configuration>
       </plugin>
-
-      <!-- 3. create docker image -->
       <plugin>
         <groupId>io.fabric8</groupId>
         <artifactId>fabric8-maven-plugin</artifactId>
         <version>${fabric8.maven.plugin.version}</version>
-        <configuration>
-          <images>
-            <image>
-              <name>${project.artifactId}:${project.version}</name>
-              <alias>${project.artifactId}</alias>
-              <build>
-                <from>${docker.from}</from>
-                <assembly>
-                  <basedir>/deployments</basedir>
-                  <user>jboss:jboss:jboss</user>
-                  <inline xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
-                          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-                    <id>${project.artifactId}</id>
-                    <files>
-                      <!-- copy karaf archive -->
-                      <file>
-                        <source>${project.build.directory}/${project.artifactId}-${project.version}.zip</source>
-                        <outputDirectory>/</outputDirectory>
-                        <fileMode>0644</fileMode>
-                      </file>
-                    </files>
-                  </inline>
-                </assembly>
-                <cmd>
-                  <shell>/deployments/deploy-and-run.sh</shell>
-                </cmd>
-              </build>
-            </image>
-          </images>
-        </configuration>
         <executions>
           <execution>
             <id>generate-resource</id>

@@ -1,0 +1,12 @@
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - env:
+          - name: ACTIVEMQ_SERVICE_NAME
+            value: activemq
+          - name: ACTIVEMQ_USERNAME
+            value: admin
+          - name: ACTIVEMQ_PASSWORD
+            value: admin

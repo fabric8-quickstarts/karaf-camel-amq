@@ -35,11 +35,9 @@
   <bean id="orderGenerator" class="io.fabric8.quickstarts.camelamq.OrderGenerator"/>
 
   <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
-    <property name="brokerURL" value="tcp://${env+service:ACTIVEMQ_SERVICE_NAME}"/>
-    <!--
     <property name="userName"  value="${env:ACTIVEMQ_USERNAME}"/>
     <property name="password"  value="${env:ACTIVEMQ_PASSWORD}"/>
-    -->
+    <property name="brokerURL" value="tcp://${env+service:ACTIVEMQ_SERVICE_NAME}"/>
   </bean>
 
   <!--
