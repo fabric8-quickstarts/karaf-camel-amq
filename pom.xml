@@ -39,19 +39,11 @@
     <fabric8.version>2.2.144</fabric8.version>
 
     <docker.from>fabric8/s2i-karaf:1.2</docker.from>
-    <fabric8.dockerUser>fabric8/</fabric8.dockerUser>
-    <fabric8.image>${fabric8.dockerUser}${project.artifactId}:${project.version}</fabric8.image>
-
-    <docker.assemblyDescriptor>${basedir}/src/main/fabric8/assembly.xml</docker.assemblyDescriptor>
-    <docker.port.container.jolokia>8778</docker.port.container.jolokia>
-    <docker.port.container.http>8181</docker.port.container.http>
     <fabric8.env.ACTIVEMQ_SERVICE_NAME>activemq</fabric8.env.ACTIVEMQ_SERVICE_NAME>
     <!--
     <fabric8.env.ACTIVEMQ_USERNAME>amq_username</fabric8.env.ACTIVEMQ_USERNAME>
     <fabric8.env.ACTIVEMQ_PASSWORD>amq_password</fabric8.env.ACTIVEMQ_PASSWORD>
     -->
-    <fabric8.label.group>quickstarts</fabric8.label.group>
-    <fabric8.iconRef>camel</fabric8.iconRef>
 
     <!-- maven plugin versions -->
     <fabric8.maven.plugin.version>3.0.28</fabric8.maven.plugin.version>
