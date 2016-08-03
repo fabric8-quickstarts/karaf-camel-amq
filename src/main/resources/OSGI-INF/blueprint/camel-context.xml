@@ -71,7 +71,7 @@
     -->
     <route id="file-to-jms-route">
       <from uri="file:work/jms/input"/>
-      <log message="Receiving order ${file:name}"/>
+      <log message="Receiving order ${file:name}" loggingLevel="INFO"/>
       <to uri="activemq:incomingOrders"/>
     </route>
 
@@ -88,16 +88,16 @@
       <choice>
         <when>
           <xpath>/order:order/order:customer/order:country = 'UK'</xpath>
-          <log message="Sending order ${file:name} to the UK"/>
+          <log message="Sending order ${file:name} to the UK" loggingLevel="INFO"/>
           <to uri="file:work/jms/output/uk"/>
         </when>
         <when>
           <xpath>/order:order/order:customer/order:country = 'US'</xpath>
-          <log message="Sending order ${file:name} to the US"/>
+          <log message="Sending order ${file:name} to the US" loggingLevel="INFO"/>
           <to uri="file:work/jms/output/us"/>
         </when>
         <otherwise>
-          <log message="Sending order ${file:name} to another country"/>
+          <log message="Sending order ${file:name} to another country" loggingLevel="INFO"/>
           <to uri="file:work/jms/output/others"/>
         </otherwise>
       </choice>

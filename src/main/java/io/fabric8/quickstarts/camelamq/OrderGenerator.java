@@ -30,7 +30,6 @@ public class OrderGenerator {
 
     public InputStream generateOrder(CamelContext camelContext) {
         int number = random.nextInt(5) + 1;
-
         String name = "data/order" + number + ".xml";
 
         return camelContext.getClassResolver().loadResourceAsStream(name);
