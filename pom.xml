@@ -16,11 +16,7 @@
      permissions and limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="
-             http://maven.apache.org/POM/4.0.0
-             http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="              http://maven.apache.org/POM/4.0.0              http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -35,15 +31,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- configure the versions you want to use here -->
-    <activemq.version>5.12.3</activemq.version>
-    <camel.version>2.17.2</camel.version>
+    <activemq.version>5.12.1</activemq.version>
+    <camel.version>2.17.3</camel.version>
     <karaf.version>2.4.4</karaf.version>
     <karaf.plugin.version>4.0.5</karaf.plugin.version>
-    <fabric8.version>2.2.145</fabric8.version>
+    <fabric8.version>2.2.148</fabric8.version>
     <fabric8.kubernetes.version>1.4.1</fabric8.kubernetes.version>
 
     <!-- maven plugin versions -->
-    <fabric8.maven.plugin.version>3.1.4</fabric8.maven.plugin.version>
+    <fabric8.maven.plugin.version>3.1.11</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
     <maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
