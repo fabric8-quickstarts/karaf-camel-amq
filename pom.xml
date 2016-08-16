@@ -214,8 +214,7 @@
         <configuration>
           <karafVersion>v24</karafVersion>
           <useReferenceUrls>true</useReferenceUrls>
-          <archiveTarGz>true</archiveTarGz>
-          <archiveZip>false</archiveZip>
+          <archiveTarGz>false</archiveTarGz>
           <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
           <startupFeatures>
             <feature>karaf-framework</feature>
