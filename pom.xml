@@ -36,14 +36,14 @@
 
     <!-- configure the versions you want to use here -->
     <activemq.version>5.12.3</activemq.version>
-    <camel.version>2.17.2</camel.version>
+    <camel.version>2.17.3</camel.version>
     <karaf.version>2.4.4</karaf.version>
     <karaf.plugin.version>4.0.5</karaf.plugin.version>
-    <fabric8.version>2.2.145</fabric8.version>
-    <fabric8.kubernetes.version>1.4.1</fabric8.kubernetes.version>
+    <fabric8.version>2.2.152</fabric8.version>
+    <fabric8.kubernetes.version>1.4.4</fabric8.kubernetes.version>
 
     <!-- maven plugin versions -->
-    <fabric8.maven.plugin.version>3.1.4</fabric8.maven.plugin.version>
+    <fabric8.maven.plugin.version>3.1.15</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
     <maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
@@ -131,6 +131,13 @@
       <groupId>io.fabric8.kubernetes</groupId>
       <artifactId>kubernetes-karaf</artifactId>
       <version>${fabric8.kubernetes.version}</version>
+      <classifier>features</classifier>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>fabric8-karaf-features</artifactId>
+      <version>${fabric8.version}</version>
       <classifier>features</classifier>
       <type>xml</type>
     </dependency>
@@ -227,9 +234,9 @@
             <feature>activemq-camel</feature>
             <feature>kubernetes-client</feature>
             <feature>openshift-client</feature>
+            <feature>fabric8-karaf-blueprint</feature>
           </startupFeatures>
           <startupBundles>
-            <bundle>mvn:io.fabric8/fabric8-karaf/${fabric8.version};start-level=60</bundle>
             <bundle>mvn:${project.groupId}/${project.artifactId}/${project.version};start-level=80</bundle>
           </startupBundles>
           <blacklistedBundles>
