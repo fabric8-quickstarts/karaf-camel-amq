@@ -4,9 +4,11 @@ spec:
     spec:
       containers:
         - env:
-          - name: ACTIVEMQ_SERVICE_NAME
-            value: activemq
-          - name: ACTIVEMQ_USERNAME
+          - name: AMQP_SERVICE_NAME
+            value: messaging-enmasse.192.168.64.1.nip.io
+          - name: AMQP_USERNAME
             value: admin
-          - name: ACTIVEMQ_PASSWORD
+          - name: AMQP_PASSWORD
             value: admin
+          - name: AMQP_PARAMETERS
+            value: transport.trustAll=true&transport.verifyHost=false&amqp.idleTimeout=120000
