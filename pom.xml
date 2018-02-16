@@ -31,13 +31,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- configure the versions you want to use here -->
-    <activemq.version>5.14.1</activemq.version>
+    <version.org.apache.activemq.artemis>2.4.0</version.org.apache.activemq.artemis>
     <camel.version>2.19.1</camel.version>
-    <karaf.version>4.0.8</karaf.version>
+    <karaf.version>4.1.4</karaf.version>
     <fabric8.version>2.3.2</fabric8.version>
 
     <!-- maven plugin versions -->
-    <fabric8.maven.plugin.version>3.5.17</fabric8.maven.plugin.version>
+    <fabric8.maven.plugin.version>3.5.35</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     <maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
@@ -98,15 +98,16 @@
     </dependency>
     <dependency>
       <groupId>org.apache.karaf.features</groupId>
-      <artifactId>enterprise</artifactId>
+      <artifactId>spring</artifactId>
       <classifier>features</classifier>
       <version>${karaf.version}</version>
       <type>xml</type>
       <scope>compile</scope>
     </dependency>
+
     <dependency>
       <groupId>org.apache.karaf.features</groupId>
-      <artifactId>spring</artifactId>
+      <artifactId>enterprise</artifactId>
       <classifier>features</classifier>
       <version>${karaf.version}</version>
       <type>xml</type>
@@ -119,13 +120,15 @@
       <classifier>features</classifier>
       <type>xml</type>
     </dependency>
+
     <dependency>
       <groupId>org.apache.activemq</groupId>
-      <artifactId>activemq-karaf</artifactId>
-      <version>${activemq.version}</version>
-      <classifier>features</classifier>
+      <artifactId>artemis-features</artifactId>
+      <version>${version.org.apache.activemq.artemis}</version>
       <type>xml</type>
+      <classifier>features</classifier>
     </dependency>
+
     <dependency>
       <groupId>io.fabric8</groupId>
       <artifactId>fabric8-karaf-features</artifactId>
@@ -163,7 +166,6 @@
         <configuration>
           <instructions>
             <Import-Package>
-              org.apache.activemq.pool,
               *
             </Import-Package>
           </instructions>
@@ -216,8 +218,9 @@
             <feature>aries-blueprint</feature>
             <feature>camel-blueprint</feature>
             <feature>camel-jms</feature>
-            <feature>activemq-client</feature>
-            <feature>activemq-camel</feature>
+
+	    <feature>camel-amqp</feature>
+
             <feature>fabric8-karaf-blueprint</feature>
             <feature>fabric8-karaf-checks</feature>
           </startupFeatures>
