@@ -34,10 +34,25 @@
 
   <bean id="orderGenerator" class="io.fabric8.quickstarts.camelamq.OrderGenerator"/>
 
-  <bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent">
-    <property name="username"  value="${env:ACTIVEMQ_USERNAME}"/>
-    <property name="password"  value="${env:ACTIVEMQ_PASSWORD}"/>
-    <property name="brokerURL" value="tcp://${env+service:ACTIVEMQ_SERVICE_NAME}"/>
+  <bean id="amqpConnectionFactory" class="org.apache.qpid.jms.JmsConnectionFactory">
+    <property name="username"  value="${env:AMQP_USERNAME}"/>
+    <property name="password"  value="${env:AMQP_PASSWORD}"/>
+    <property name="remoteURI" value="amqps://${env:AMQP_SERVICE_NAME}:443?${env:AMQP_PARAMETERS}"/>
+    <property name="receiveLocalOnly" value="true" />
+  </bean>
+
+  <bean id="cachingConnectionFactory"
+    class="org.springframework.jms.connection.CachingConnectionFactory">
+    <property name="targetConnectionFactory" ref="amqpConnectionFactory" />
+  </bean>
+
+  <bean id="jmsConfig" class="org.apache.camel.component.jms.JmsConfiguration" >
+    <property name="connectionFactory" ref="cachingConnectionFactory" />
+    <property name="cacheLevelName" value="CACHE_AUTO" />
+  </bean>
+
+  <bean id="amqp" class="org.apache.camel.component.amqp.AMQPComponent">
+    <property name="configuration" ref="jmsConfig" />
   </bean>
 
   <!--
@@ -72,7 +87,7 @@
     <route id="file-to-jms-route">
       <from uri="file:work/jms/input"/>
       <log message="Receiving order ${file:name}" loggingLevel="INFO"/>
-      <to uri="activemq:incomingOrders"/>
+      <to uri="amqp:queue:incomingOrders"/>
     </route>
 
     <!--
@@ -84,7 +99,7 @@
       requirements for either of the <when/> elements will be moved to the work/jms/output/others directory.
     -->
     <route id="jms-cbr-route" streamCache="true">
-      <from uri="activemq:incomingOrders"/>
+      <from uri="amqp:queue:incomingOrders"/>
       <choice>
         <when>
           <xpath>/order:order/order:customer/order:country = 'UK'</xpath>
