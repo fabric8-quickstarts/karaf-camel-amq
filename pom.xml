@@ -32,9 +32,8 @@
 
     <!-- configure the versions you want to use here -->
     <version.org.apache.activemq.artemis>2.4.0</version.org.apache.activemq.artemis>
-    <camel.version>2.19.1</camel.version>
-    <karaf.version>4.1.4</karaf.version>
-    <fabric8.version>2.3.2</fabric8.version>
+    <karaf.version>4.2.0.fuse-000190</karaf.version>
+    <fabric8.version>3.0.8.fuse-000020</fabric8.version>
 
     <!-- maven plugin versions -->
     <fabric8.maven.plugin.version>3.5.35</fabric8.maven.plugin.version>
@@ -49,15 +48,8 @@
       <!-- import fabric8 platform bom first -->
       <dependency>
         <groupId>io.fabric8</groupId>
-        <artifactId>fabric8-project-bom-with-platform-deps</artifactId>
+        <artifactId>fabric8-project-bom-fuse-karaf</artifactId>
         <version>${fabric8.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-parent</artifactId>
-        <version>${camel.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -69,54 +61,26 @@
     <!-- camel -->
     <dependency>
       <groupId>org.apache.camel</groupId>
+      <artifactId>camel-jms</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.camel</groupId>
       <artifactId>camel-blueprint</artifactId>
       <scope>provided</scope>
     </dependency>
 
     <!-- Karaf microcontainer dependencies -->
-     <dependency>
-      <groupId>org.apache.karaf.features</groupId>
-      <artifactId>framework</artifactId>
-      <version>${karaf.version}</version>
+    <dependency>
+      <!-- scope is compile so all features (there is only one) are installed into startup.properties,
+      and the feature repo itself is not added in etc/org.apache.karaf.features.cfg file -->
+      <groupId>org.jboss.fuse</groupId>
+      <artifactId>fuse-karaf-framework</artifactId>
       <type>kar</type>
     </dependency>
     <dependency>
-      <groupId>org.apache.karaf.features</groupId>
-      <artifactId>framework</artifactId>
-      <classifier>features</classifier>
-      <version>${karaf.version}</version>
-      <type>xml</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.karaf.features</groupId>
-      <artifactId>standard</artifactId>
-      <classifier>features</classifier>
-      <version>${karaf.version}</version>
-      <type>xml</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.karaf.features</groupId>
-      <artifactId>spring</artifactId>
-      <classifier>features</classifier>
-      <version>${karaf.version}</version>
-      <type>xml</type>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.karaf.features</groupId>
-      <artifactId>enterprise</artifactId>
-      <classifier>features</classifier>
-      <version>${karaf.version}</version>
-      <type>xml</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.camel.karaf</groupId>
-      <artifactId>apache-camel</artifactId>
-      <version>${camel.version}</version>
+      <groupId>io.fabric8</groupId>
+      <artifactId>fabric8-karaf-features</artifactId>
       <classifier>features</classifier>
       <type>xml</type>
     </dependency>
@@ -129,13 +93,6 @@
       <classifier>features</classifier>
     </dependency>
 
-    <dependency>
-      <groupId>io.fabric8</groupId>
-      <artifactId>fabric8-karaf-features</artifactId>
-      <version>${fabric8.version}</version>
-      <classifier>features</classifier>
-      <type>xml</type>
-    </dependency>
   </dependencies>
 
   <build>
@@ -163,13 +120,6 @@
         <artifactId>maven-bundle-plugin</artifactId>
         <version>${maven-bundle-plugin.version}</version>
         <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Import-Package>
-              *
-            </Import-Package>
-          </instructions>
-        </configuration>
       </plugin>
 
       <!-- plugin goals have to be executed in order -->
@@ -208,6 +158,7 @@
         <configuration>
           <javase>1.8</javase>
           <karafVersion>v4x</karafVersion>
+          <framework>framework</framework>
           <useReferenceUrls>true</useReferenceUrls>
           <archiveTarGz>false</archiveTarGz>
           <includeBuildOutputDirectory>false</includeBuildOutputDirectory>
@@ -215,6 +166,8 @@
             <feature>framework</feature>
             <feature>scr</feature>
             <feature>jaas</feature>
+            <feature>log</feature>
+            <feature>shell</feature>
             <feature>aries-blueprint</feature>
             <feature>camel-blueprint</feature>
             <feature>camel-jms</feature>
@@ -225,17 +178,8 @@
             <feature>fabric8-karaf-checks</feature>
           </startupFeatures>
           <startupBundles>
-            <bundle>mvn:${project.groupId}/${project.artifactId}/${project.version};start-level=80</bundle>
+            <bundle>mvn:${project.groupId}/${project.artifactId}/${project.version}</bundle>
           </startupBundles>
-          <blacklistedBundles>
-            <bundle>camel-karaf-commands;url="mvn:org.apache.camel.karaf/camel-karaf-commands/${camel.version}"</bundle>
-            <bundle>camel-karaf-commands-catalog;url="mvn:org.apache.camel.karaf/camel-karaf-commands-catalog/${camel.version}"</bundle>
-          </blacklistedBundles>
-          <libraries>
-            <library>
-              mvn:org.apache.karaf.jaas/org.apache.karaf.jaas.boot/${karaf.version};type:=boot;export:=true;delegate:=true
-            </library>
-          </libraries>
         </configuration>
       </plugin>
 
