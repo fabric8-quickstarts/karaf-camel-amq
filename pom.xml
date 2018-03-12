@@ -32,8 +32,8 @@
 
     <!-- configure the versions you want to use here -->
     <version.org.apache.activemq.artemis>2.4.0</version.org.apache.activemq.artemis>
-    <karaf.version>4.2.0.fuse-000190</karaf.version>
-    <fabric8.version>3.0.8.fuse-000020</fabric8.version>
+    <karaf.version>4.2.0-700.fuse-000004</karaf.version>
+    <fabric8.version>2.3.7.fuse-000026</fabric8.version>
 
     <!-- maven plugin versions -->
     <fabric8.maven.plugin.version>3.5.35</fabric8.maven.plugin.version>
