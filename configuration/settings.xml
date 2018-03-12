@@ -72,6 +72,18 @@
             <updatePolicy>never</updatePolicy>
           </releases>
         </repository>
+        <repository>
+          <id>jb-eap-7.0-rhel-7-build</id>
+          <name>jboss.eap.7.0.staging</name>
+          <url>http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+        </repository>
       </repositories>
       <pluginRepositories>
         <pluginRepository>
