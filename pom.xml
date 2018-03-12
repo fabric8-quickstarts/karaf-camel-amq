@@ -85,14 +85,6 @@
       <type>xml</type>
     </dependency>
 
-    <dependency>
-      <groupId>org.apache.activemq</groupId>
-      <artifactId>artemis-features</artifactId>
-      <version>${version.org.apache.activemq.artemis}</version>
-      <type>xml</type>
-      <classifier>features</classifier>
-    </dependency>
-
   </dependencies>
 
   <build>
