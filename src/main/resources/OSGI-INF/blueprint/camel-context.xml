@@ -23,7 +23,7 @@
    The root element for any OSGi Blueprint file is 'blueprint' - you also see the namespace definitions for both the Blueprint
    and the Camel namespaces.
 -->
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0" 
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns:ext="http://aries.apache.org/blueprint/xmlns/blueprint-ext/v1.5.0"
            xsi:schemaLocation="
@@ -66,12 +66,12 @@
 
     <!-- a route to generate a random order every 5th second -->
     <route id="generate-order">
-      <from uri="timer:order?period=5000"/>
-      <bean ref="orderGenerator" method="generateOrder"/>
-      <setHeader headerName="Exchange.FILE_NAME">
+      <from id="order-timer" uri="timer:order?period=5000"/>
+      <bean id="order-generate" ref="orderGenerator" method="generateOrder"/>
+      <setHeader id="order-filename" headerName="Exchange.FILE_NAME">
         <method ref="orderGenerator" method="generateFileName"/>
       </setHeader>
-      <to uri="file:work/jms/input"/>
+      <to id="order-to-file" uri="file:work/jms/input"/>
     </route>
 
     <!--
@@ -85,9 +85,9 @@
       ActiveMQ broker.
     -->
     <route id="file-to-jms-route">
-      <from uri="file:work/jms/input"/>
-      <log message="Receiving order ${file:name}" loggingLevel="INFO"/>
-      <to uri="amqp:queue:incomingOrders"/>
+      <from id="order-from-file" uri="file:work/jms/input"/>
+      <log id="log-order" message="Receiving order ${file:name}" loggingLevel="INFO"/>
+      <to id="order-to-queue" uri="amqp:queue:incomingOrders"/>
     </route>
 
     <!--
@@ -99,24 +99,24 @@
       requirements for either of the <when/> elements will be moved to the work/jms/output/others directory.
     -->
     <route id="jms-cbr-route" streamCache="true">
-      <from uri="amqp:queue:incomingOrders"/>
-      <choice>
-        <when>
+      <from id="order-from-queue" uri="amqp:queue:incomingOrders"/>
+      <choice id="order-choice">
+        <when id="when-order-uk">
           <xpath>/order:order/order:customer/order:country = 'UK'</xpath>
-          <log message="Sending order ${file:name} to the UK" loggingLevel="INFO"/>
-          <to uri="file:work/jms/output/uk"/>
+          <log id="log-order-uk" message="Sending order ${file:name} to the UK" loggingLevel="INFO"/>
+          <to id="file-order-uk" uri="file:work/jms/output/uk"/>
         </when>
-        <when>
+        <when id="when-order-us">
           <xpath>/order:order/order:customer/order:country = 'US'</xpath>
-          <log message="Sending order ${file:name} to the US" loggingLevel="INFO"/>
-          <to uri="file:work/jms/output/us"/>
+          <log id="log-order-us" message="Sending order ${file:name} to the US" loggingLevel="INFO"/>
+          <to id="file-order-us" uri="file:work/jms/output/us"/>
         </when>
-        <otherwise>
-          <log message="Sending order ${file:name} to another country" loggingLevel="INFO"/>
-          <to uri="file:work/jms/output/others"/>
+        <otherwise id="when-other-order">
+          <log id="log-other-order" message="Sending order ${file:name} to another country" loggingLevel="INFO"/>
+          <to id="file-other-order" uri="file:work/jms/output/others"/>
         </otherwise>
       </choice>
-      <log message="Done processing ${file:name}"/>
+      <log id="log-done" message="Done processing ${file:name}"/>
     </route>
   </camelContext>
 
