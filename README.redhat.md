@@ -10,9 +10,9 @@ to install EnMasse into OpenShift or Kubernetes.    There is a deploy-openshift.
 
 To install this quickstart from the command line type
 
-The example can be built and deployed using a single goal:
+The example can be built with:
 
-    mvn -Pf8-local-deploy
+    mvn clean install
 
 This requires you have [setup your local computer](http://fabric8.io/guide/getStarted/develop.html) to work with docker and kubernetes.
 
