@@ -10,12 +10,11 @@ to install EnMasse into OpenShift or Kubernetes. There is a deploy-openshift.sh 
 
 ### Configuration
 
+The quickstart must run on a Openshift project different from the one where EnMasse is deployed.
+
 Before running the quickstart, you need to configure the `src/main/fabric8/deployment.yml` file in order to 
 use the correct remote instance of AMQ EnMasse.
-
-The `AMQP_SERVICE_NAME` can point to the "messaging" service if the quickstart is deployed in the same 
-namespace as EnMasse, or to the external route host corresponding to the messaging service if deployed on a 
-different namespace.
+The `AMQP_SERVICE_NAME` environment variable must point to the hostname of the external "messaging" route exposed by EnMasse.
 
 ### Building
 
