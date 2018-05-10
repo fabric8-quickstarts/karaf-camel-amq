@@ -8,6 +8,15 @@ http://enmasse.io/documentation
 
 to install EnMasse into OpenShift or Kubernetes. There is a deploy-openshift.sh script and a deploy-kubernetes.sh script that will help you install EnMasse.    Once EnMasse is installed, please create an incomingOrders queue using the EnMasse console.
 
+### Configuration
+
+Before running the quickstart, you need to configure the `src/main/fabric8/deployment.yml` file in order to 
+use the correct remote instance of AMQ EnMasse.
+
+The `AMQP_SERVICE_NAME` can point to the "messaging" service if the quickstart is deployed in the same 
+namespace as EnMasse, or to the external route host corresponding to the messaging service if deployed on a 
+different namespace.
+
 ### Building
 
 The example can be built with:
