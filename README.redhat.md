@@ -6,7 +6,7 @@ This quickstart requires EnMasse to have been deployed and running first. Follow
 
 http://enmasse.io/documentation
 
-to install EnMasse into OpenShift or Kubernetes. There is a deploy-openshift.sh script and a deploy-kubernetes.sh script that will help you install EnMasse.    Once EnMasse is installed, please create an incomingOrders queue using the EnMasse console.
+to install EnMasse into OpenShift or Kubernetes. There is a `deploy.sh` script that will help you install EnMasse. Once EnMasse is installed, please create an incomingOrders queue using the EnMasse console.
 
 ### Configuration
 
