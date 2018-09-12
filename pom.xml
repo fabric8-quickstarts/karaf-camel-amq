@@ -31,7 +31,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- configure the versions you want to use here -->
-    <fuse.version>7.0.1.fuse-000008-redhat-4</fuse.version>
+    <fuse.version>7.2.0.fuse-720004</fuse.version>
 
     <!-- maven plugin versions -->
     <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
