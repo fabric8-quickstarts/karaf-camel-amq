@@ -22,7 +22,7 @@
 
   <groupId>io.fabric8.quickstarts</groupId>
   <artifactId>karaf-camel-amq</artifactId>
-  <version>1.0.0.fuse-731003</version>
+  <version>1.0.0.fuse-731003-redhat-00001</version>
   <packaging>bundle</packaging>
   <name>Fabric8 :: Quickstarts :: Karaf :: Camel and ActiveMQ</name>
   <description>Camel route using ActiveMQ in Karaf container</description>
