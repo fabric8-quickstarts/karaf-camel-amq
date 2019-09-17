@@ -37,7 +37,7 @@
   <bean id="amqpConnectionFactory" class="org.apache.qpid.jms.JmsConnectionFactory">
     <property name="username"  value="${env:AMQP_USERNAME}"/>
     <property name="password"  value="${env:AMQP_PASSWORD}"/>
-    <property name="remoteURI" value="amqps://${env:AMQP_SERVICE_NAME}:443?${env:AMQP_PARAMETERS}"/>
+    <property name="remoteURI" value="amqps://${env:AMQP_SERVICE_NAME}:${env:AMQP_SERVICE_PORT}?${env:AMQP_PARAMETERS}"/>
     <property name="receiveLocalOnly" value="true" />
   </bean>
 
