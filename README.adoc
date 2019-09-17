@@ -1,46 +1,118 @@
-# Camel AMQ QuickStart
+= Camel AMQ QuickStart
 
 This quickstart demonstrates how to connect to EnMasse (MaaS) and use JMS messaging between two Camel routes.
 
-This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow [documentation](https://enmasse.io/documentation/master/openshift/#installing-messaging).
+In this example we will use two containers, one container to run as an EnMasse instance, and another as a client to the broker, where the Camel routes are running.
 
-### Configuration
+This quickstart requires EnMasse to have been deployed and running first. To install EnMasse into OpenShift or Kubernetes follow https://enmasse.io/documentation/master/openshift/#installing-messaging[documentation].
 
-The quickstart must run on a Openshift project different from the one where EnMasse is deployed.
+IMPORTANT: This quickstart can run in 1 mode: on Kubernetes / OpenShift Cluster
 
-Log in as a user with cluster-admin privileges:
+== Running the Quickstart on a single-node Kubernetes/OpenShift cluster
 
-```
-oc login -u system:admin
-```
+IMPORTANT: You need to run this example on Container Development Kit 3.3 or OpenShift 3.7.
+Both of these products have suitable Fuse images pre-installed.
+If you run it in an environment where those images are not preinstalled follow the steps described in <<single-node-without-preinstalled-images>>.
 
-Before running the quickstart, you need to configure EnMasse (create user and queue). Run the following commands to create new project and apply configuration files:
+A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
 
-```
-oc new-project MY_PROJECT_NAME
-oc apply -f src/main/resources/k8s
-```
+If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
 
-### Building
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
 
-The example can be built with:
+. Create a new OpenShift project for the quickstart:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
 
-    mvn clean install
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/karaf-camel-amq`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/karaf-camel-amq
+----
 
-### Running the example in OpenShift
+. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
 
-The example can be built and deployed using:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u system:admin
+$ oc apply -f src/main/resources/k8s
+----
 
-    mvn fabric8:deploy
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Popenshift
+----
 
-When the example runs in OpenShift, you can use the OpenShift client tool to inspect the status, e.g.:
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `karaf-camel-amq` has started up.
 
-- To list all the running pods:
-    ```
-    $ oc get pods
-    ```
+. On the project's `Overview` page, navigate to the details page deployment of the `karaf-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/karaf-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
 
-- Then find the name of the pod that runs this example, and output the logs from the running pod with:
-    ```
-    $ oc logs <name of pod>
-    ```
+. Switch to tab `Logs` and then see the messages sent by Camel.
+
+[#single-node-without-preinstalled-images]
+=== Running the Quickstart on a single-node Kubernetes/OpenShift cluster without preinstalled images
+
+A single-node Kubernetes/OpenShift cluster provides you with access to a cloud environment that is similar to a production environment.
+
+If you have a single-node Kubernetes/OpenShift cluster, such as Minishift or the Red Hat Container Development Kit, link:http://appdev.openshift.io/docs/minishift-installation.html[installed and running], you can deploy your quickstart there.
+
+
+. Log in to your OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u developer -p developer
+----
+
+. Create a new OpenShift project for the quickstart:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project MY_PROJECT_NAME
+----
+
+. Import base images in your newly created project (MY_PROJECT_NAME) according to https://access.redhat.com/documentation/en-us/red_hat_fuse/7.4/html/fuse_on_openshift_guide/get-started-non-admin[documentation].
+
+. Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/karaf-camel-amq`) :
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd my_openshift/karaf-camel-amq
+----
+
+. Before running the quickstart, you need to configure EnMasse (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u system:admin
+$ oc apply -f src/main/resources/k8s
+----
+
+. Build and deploy the project to the OpenShift cluster:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse7-karaf-openshift:1.4
+----
+
+. In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
+Wait until you can see that the pod for the `karaf-camel-amq` has started up.
+
+. On the project's `Overview` page, navigate to the details page deployment of the `karaf-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/karaf-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
+
+. Switch to tab `Logs` and then see the messages sent by Camel.
+
