@@ -86,7 +86,7 @@ $ oc login -u developer -p developer
 $ oc new-project MY_PROJECT_NAME
 ----
 
-. Import base images in your newly created project (MY_PROJECT_NAME) according to https://access.redhat.com/documentation/en-us/red_hat_fuse/7.7/html/fuse_on_openshift_guide/get-started-non-admin[documentation].
+. Import base images in your newly created project (MY_PROJECT_NAME) according to https://access.redhat.com/documentation/en-us/red_hat_fuse/7.8/html/fuse_on_openshift_guide/get-started-non-admin[documentation].
 
 . Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/karaf-camel-amq`) :
 +
@@ -108,7 +108,7 @@ $ oc apply -f src/main/resources/k8s
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse7-karaf-openshift:1.7
+$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse-java-openshift:1.8
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
