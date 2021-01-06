@@ -1,0 +1,8 @@
+. Before running the quickstart, you need to configure AMQ Online (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc login -u system:admin
+$ oc apply -f src/main/resources/k8s
+----
