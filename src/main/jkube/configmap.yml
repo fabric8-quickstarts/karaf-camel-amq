@@ -1,0 +1,7 @@
+metadata:
+  name: karaf-camel-amq-protocol
+data:
+  service.protocol: amqps 
+  service.port.amqp: 5672
+  service.port.amqps: 5671
+  service.host: broker-amq-amqp
