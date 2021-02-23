@@ -16,15 +16,25 @@ spec:
             value: admin
           - name: AMQP_PASSWORD
             value: test
-          - name: AMQP_SERVICE_NAME
+          - name: AMQ_CAMEL_SERVICE_NAME
             valueFrom:
               configMapKeyRef:
-                name: karaf-camel-amq-config
+                name: karaf-camel-amq-protocol
                 key: service.host
-          - name: AMQP_SERVICE_PORT
+          - name: AMQ_CAMEL_SERVICE_PORT_AMQPS
             valueFrom:
               configMapKeyRef:
-                name: karaf-camel-amq-config
+                name: karaf-camel-amq-protocol
                 key: service.port.amqps
-          - name: AMQP_PARAMETERS
+          - name: AMQ_CAMEL_SERVICE_PORT_AMQP
+            valueFrom:
+              configMapKeyRef:
+                name: karaf-camel-amq-protocol
+                key: service.port.amqp
+          - name: AMQ_CAMEL_PARAMETERS
             value: transport.trustAll=true&transport.verifyHost=false&amqp.idleTimeout=120000
+          - name: AMQ_PROTOCOL
+            valueFrom:
+              configMapKeyRef:
+                name: karaf-camel-amq-protocol
+                key: service.protocol
