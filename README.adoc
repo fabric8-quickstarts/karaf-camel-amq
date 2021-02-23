@@ -54,7 +54,7 @@ $ oc apply -f src/main/resources/k8s
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Popenshift
+$ mvn clean -DskipTests oc:deploy -Popenshift
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
@@ -108,7 +108,7 @@ $ oc apply -f src/main/resources/k8s
 +
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ mvn clean -DskipTests fabric8:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse7-karaf-openshift:1.7
+$ mvn clean -DskipTests oc:deploy -Popenshift -Dfabric8.generator.fromMode=istag -Dfabric8.generator.from=MY_PROJECT_NAME/fuse7-karaf-openshift:2.0
 ----
 
 . In your browser, navigate to the `MY_PROJECT_NAME` project in the OpenShift console.
