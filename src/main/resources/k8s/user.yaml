@@ -1,9 +1,9 @@
 apiVersion: user.enmasse.io/v1beta1
 kind: MessagingUser
 metadata:
-  name: spring-boot-camel-amq.client
+  name: karaf-camel-amq.client
 spec:
-  username: admin
+  username: user1
   authentication:
     type: password
     password: dGVzdA==

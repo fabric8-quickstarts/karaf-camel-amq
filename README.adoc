@@ -8,6 +8,8 @@ In this example we will use two containers, one container to run as an AMQ Onlin
 
 This quickstart requires AMQ Online to have been deployed and running first. To install AMQ Online into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/7.4/html/installing_and_managing_amq_online_on_openshift_container_platform/installing-messaging[documentation].
 
+Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
+
 IMPORTANT: This quickstart can run in 1 mode: on Kubernetes / OpenShift Cluster
 
 == Running the Quickstart on a single-node Kubernetes/OpenShift cluster
@@ -50,6 +52,13 @@ $ oc login -u system:admin
 $ oc apply -f src/main/resources/k8s
 ----
 
+. Wait until address space is ready:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get addressspace karaf-camel-amq -o jsonpath={.status.isReady}
+----
+
 . Build and deploy the project to the OpenShift cluster:
 +
 [source,bash,options="nowrap",subs="attributes+"]
@@ -62,7 +71,19 @@ Wait until you can see that the pod for the `karaf-camel-amq` has started up.
 
 . On the project's `Overview` page, navigate to the details page deployment of the `karaf-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/karaf-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
 
-. Switch to tab `Logs` and then see the messages sent by Camel.
+. Switch to tab `Logs` and then see the messages sent by Camel:
+----
+...
+2021-03-05 10:12:54,502 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order166.xml
+2021-03-05 10:12:54,526 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order166.xml to the UK
+2021-03-05 10:12:54,527 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Done processing order166.xml
+2021-03-05 10:12:59,527 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order167.xml
+2021-03-05 10:12:59,556 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order167.xml to the UK
+2021-03-05 10:12:59,557 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Done processing order167.xml
+2021-03-05 10:13:04,558 | INFO  | ile://work/jms/input | file-to-jms-route                | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Receiving order order168.xml
+2021-03-05 10:13:04,568 | INFO  | umer[incomingOrders] | jms-cbr-route                    | 126 - org.apache.camel.camel-core - 2.23.2.fuse-780036-redhat-00001 | Sending order order168.xml to the US
+...
+----
 
 [#single-node-without-preinstalled-images]
 === Running the Quickstart on a single-node Kubernetes/OpenShift cluster without preinstalled images
@@ -104,6 +125,13 @@ $ oc login -u system:admin
 $ oc apply -f src/main/resources/k8s
 ----
 
+. Wait until address space is ready:
++
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc get addressspace karaf-camel-amq -o jsonpath={.status.isReady}
+----
+
 . Build and deploy the project to the OpenShift cluster:
 +
 [source,bash,options="nowrap",subs="attributes+"]
@@ -116,5 +144,6 @@ Wait until you can see that the pod for the `karaf-camel-amq` has started up.
 
 . On the project's `Overview` page, navigate to the details page deployment of the `karaf-camel-amq` application: `https://OPENSHIFT_IP_ADDR:8443/console/project/MY_PROJECT_NAME/browse/rc/karaf-camel-amq-NUMBER_OF_DEPLOYMENT?tab=details`.
 
-. Switch to tab `Logs` and then see the messages sent by Camel.
+. Switch to tab `Logs` and then see the messages sent by Camel:
+
 
