@@ -13,7 +13,7 @@ spec:
               memory: 512Mi
           env:
           - name: AMQP_USERNAME
-            value: admin
+            value: user1
           - name: AMQP_PASSWORD
             value: test
           - name: AMQ_CAMEL_SERVICE_NAME

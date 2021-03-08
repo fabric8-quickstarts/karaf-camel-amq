@@ -1,8 +1,8 @@
 apiVersion: enmasse.io/v1beta1
 kind: Address
 metadata:
-  name: spring-boot-camel-amq.orders
+  name: karaf-camel-amq.orders
 spec:
   address: incomingOrders
   type: queue
-  plan: brokered-queue
+  plan: standard-small-queue
