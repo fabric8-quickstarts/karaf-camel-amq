@@ -166,7 +166,7 @@
 	    <feature>camel-amqp</feature>
 
             <feature>fabric8-karaf-blueprint</feature>
-            <feature>fabric8-karaf-checks</feature>
+            <feature>jkube-karaf-checks</feature>
             <!-- the following features (instance and system) are optional and can be omitted if you don't need to
                  see the OSGi Server information on Fuse Console -->
             <feature>instance</feature>
