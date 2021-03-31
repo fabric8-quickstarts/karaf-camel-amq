@@ -107,6 +107,9 @@ $ oc login -u developer -p developer
 $ oc new-project MY_PROJECT_NAME
 ----
 
+. Configure Red Hat Container Registry authentication (if it is not configured).
+Follow https://access.redhat.com/documentation/en-us/red_hat_fuse/7.9/html-single/fuse_on_openshift_guide/index#configure-container-registry[documentation].
+
 . Import base images in your newly created project (MY_PROJECT_NAME) according to https://access.redhat.com/documentation/en-us/red_hat_fuse/7.7/html/fuse_on_openshift_guide/get-started-non-admin[documentation].
 
 . Change the directory to the folder that contains the extracted quickstart application (for example, `my_openshift/karaf-camel-amq`) :
