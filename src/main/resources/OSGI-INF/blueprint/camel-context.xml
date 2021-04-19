@@ -35,9 +35,9 @@
   <bean id="orderGenerator" class="io.fabric8.quickstarts.camelamq.OrderGenerator"/>
 
   <bean id="amqpConnectionFactory" class="org.apache.qpid.jms.JmsConnectionFactory">
-    <property name="username"  value="${env:AMQP_USERNAME}"/>
-    <property name="password"  value="${env:AMQP_PASSWORD}"/>
-    <property name="remoteURI" value="amqps://${env:AMQ_CAMEL_SERVICE_NAME}:${env:AMQ_CAMEL_SERVICE_PORT_AMQP}?${env:AMQ_CAMEL_PARAMETERS}"/>
+    <property name="username"  value="${env:AMQ_CAMEL_USERNAME}"/>
+    <property name="password"  value="${env:AMQ_CAMEL_PASSWORD}"/>
+    <property name="remoteURI" value="amqps://${env:AMQ_CAMEL_SERVICE_NAME}:${env:AMQ_CAMEL_SERVICE_PORT_AMQPS}?${env:AMQ_CAMEL_PARAMETERS}"/>
     <property name="receiveLocalOnly" value="true" />
   </bean>
 
