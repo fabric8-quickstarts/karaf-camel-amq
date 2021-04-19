@@ -12,9 +12,9 @@ spec:
               cpu: "1.0"
               memory: 512Mi
           env:
-          - name: AMQP_USERNAME
+          - name: AMQ_CAMEL_USERNAME
             value: user1
-          - name: AMQP_PASSWORD
+          - name: AMQ_CAMEL_PASSWORD
             value: test
           - name: AMQ_CAMEL_SERVICE_NAME
             valueFrom:
