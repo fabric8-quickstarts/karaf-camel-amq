@@ -19,17 +19,17 @@ spec:
           - name: AMQ_CAMEL_SERVICE_NAME
             valueFrom:
               configMapKeyRef:
-                name: karaf-camel-amq-protocol
+                name: karaf-camel-amq-config
                 key: service.host
           - name: AMQ_CAMEL_SERVICE_PORT_AMQPS
             valueFrom:
               configMapKeyRef:
-                name: karaf-camel-amq-protocol
+                name: karaf-camel-amq-config
                 key: service.port.amqps
           - name: AMQ_CAMEL_SERVICE_PORT_AMQP
             valueFrom:
               configMapKeyRef:
-                name: karaf-camel-amq-protocol
+                name: karaf-camel-amq-config
                 key: service.port.amqp
           - name: AMQ_CAMEL_PARAMETERS
             value: transport.trustAll=true&transport.verifyHost=false&amqp.idleTimeout=120000
