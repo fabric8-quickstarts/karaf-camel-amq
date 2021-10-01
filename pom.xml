@@ -251,6 +251,15 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>java11</id>
+      <properties>
+        <jkube.generator.from>registry.redhat.io/fuse7/fuse-karaf-openshift-jdk11-rhel8:${docker.image.version}</jkube.generator.from>
+      </properties>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+    </profile>
   </profiles>
 
   <repositories>
