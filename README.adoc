@@ -10,7 +10,7 @@ This quickstart requires AMQ Online to have been deployed and running first. To 
 
 Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
 
-IMPORTANT: This quickstart can run in 1 mode: on Kubernetes / OpenShift Cluster
+IMPORTANT: This quickstart can run in 1 mode: on Kubernetes / OpenShift Cluster. Quickstart requires Java 8 or Java 11 (`fuse-karaf-openshift-jdk11-rhel8` image is used to build in Java 11)
 
 == Running the Quickstart on a single-node Kubernetes/OpenShift cluster
 
