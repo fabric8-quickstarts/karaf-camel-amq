@@ -22,7 +22,7 @@
 
   <groupId>io.fabric8.quickstarts</groupId>
   <artifactId>karaf-camel-amq</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>7.11.0.fuse-sb2-7_11_0-00006</version>
   <packaging>bundle</packaging>
   <name>Fabric8 :: Quickstarts :: Karaf :: Camel and ActiveMQ</name>
   <description>Camel route using ActiveMQ in Karaf container</description>
@@ -32,7 +32,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- configure the versions you want to use here -->
-    <fuse.bom.version>7.8.0.fuse-sb2-780033</fuse.bom.version>
+    <fuse.bom.version>7.11.0.fuse-sb2-7_11_0-00006</fuse.bom.version>
     <docker.image.version>1.11</docker.image.version>
 
     <!-- maven plugin versions -->
