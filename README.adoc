@@ -1,12 +1,12 @@
 = Camel AMQ QuickStart
 
-This quickstart demonstrates how to connect to AMQ Online and use JMS messaging between two Camel routes.
+This quickstart demonstrates how to connect to AMQ Broker and use JMS messaging between two Camel routes.
 
-IMPORTANT: The version of AMQ Online has to be at least 1.2
+IMPORTANT: The version of AMQ Broker has to be at least 1.2
 
-In this example we will use two containers, one container to run as an AMQ Online instance, and another as a client to the broker, where the Camel routes are running.
+In this example we will use two containers, one container to run as an AMQ Broker instance, and another as a client to the broker, where the Camel routes are running.
 
-This quickstart requires AMQ Online to have been deployed and running first. To install AMQ Online into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/7.4/html/installing_and_managing_amq_online_on_openshift_container_platform/installing-messaging[documentation].
+This quickstart requires AMQ Broker to have been deployed and running first. To install AMQ Broker into OpenShift or Kubernetes follow https://access.redhat.com/documentation/en-us/red_hat_amq/7.4/html/installing_and_managing_amq_online_on_openshift_container_platform/installing-messaging[documentation].
 
 Quickstart uses the _standard address space_ and  requires standard authentication. For address space and queue definition _standard-small-queue_, _standard_unlimited_ plans are used, therefore make sure you have also installed example plans, roles and standard authentication service.
 
@@ -43,7 +43,7 @@ $ oc new-project MY_PROJECT_NAME
 $ cd my_openshift/karaf-camel-amq
 ----
 
-. Before running the quickstart, you need to configure AMQ Online (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+. Before running the quickstart, you need to configure AMQ Broker (to create user and queue - both as an admin). Run the following commands to apply configuration files:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]
@@ -116,7 +116,7 @@ $ oc new-project MY_PROJECT_NAME
 $ cd my_openshift/karaf-camel-amq
 ----
 
-. Before running the quickstart, you need to configure AMQ Online (to create user and queue - both as an admin). Run the following commands to apply configuration files:
+. Before running the quickstart, you need to configure AMQ Broker (to create user and queue - both as an admin). Run the following commands to apply configuration files:
 
 +
 [source,bash,options="nowrap",subs="attributes+"]
